@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/img">
+        <file>attack/0000.png</file>
+        <file>attack/0001.png</file>
+        <file>attack/0002.png</file>
+        <file>attack/0003.png</file>
+        <file>attack/0004.png</file>
+        <file>attack/0005.png</file>
+        <file>attack/0006.png</file>
+        <file>attack/0007.png</file>
+        <file>attack/0008.png</file>
+    </qresource>
+</RCC>
