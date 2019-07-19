@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include <QWidget>
+#include <QIcon>
 #include <QPainter>
 #include <QPixmap>
 #include <QMouseEvent>
@@ -11,7 +12,13 @@
 #include <QPaintEvent>
 #include <QAction>
 #include <QMenu>
-#include<QSystemTrayIcon>
+#include <QFile>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QWidgetAction>
+#include <QPushButton>
+#include <QSystemTrayIcon>
 
 class Sprite : public QWidget
 {
@@ -19,6 +26,11 @@ class Sprite : public QWidget
 
 public:
     Sprite(QWidget *parent = 0);
+
+    void createWidget();
+    void createBtnWidget();
+    void TrayIconAction(QSystemTrayIcon::ActivationReason reason);
+    
     ~Sprite();
 
 private:
@@ -31,20 +43,30 @@ private:
     QMenu *menu;
     QAction *act1;
     QAction *act2;
-    QAction *act3;  //×îĞ¡»¯´°¿Ú
-    QAction *act4;  //¹Ø±Õ´°¿Ú
+    QAction *act3;
+    QFile *qssFile;
+    QLabel *label1;
+    QLabel *label2;
+    QVBoxLayout *layout1;
+    QWidget *widgetMenu;
+    QWidget *widgetMenu2;
+    QWidgetAction *wact;
+    QWidgetAction *wact2;
+    QPushButton *btn1;
+    QPushButton *btn2;
+    QPushButton *btn3;
+    QSystemTrayIcon *trayIcon;
     bool ismin;
-    QMenu *menu2;
 
 public slots:
     void change();
-    void mininum(); //×îĞ¡»¯
+    void mininum(); //æœ€å°åŒ–
     void TrayIconAction(QSystemTrayIcon::ActivationReason reason);
-    void InitUI();  //´´½¨ÍĞÅÌÍ¼±ê
+    void InitUI();  //åˆ›å»ºæ‰˜ç›˜å›¾æ ‡
     void exit();
 
 private:
-    QSystemTrayIcon *tray;  //ÍĞÅÌÀà
+    QSystemTrayIcon *tray;  //æ‰˜ç›˜ç±»
 
 
 protected:
@@ -52,6 +74,9 @@ protected:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
+    void createTrayIcon();
+
+
 };
 
 #endif // SPRITE_H
