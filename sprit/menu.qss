@@ -2,12 +2,11 @@ QMenu{
 border-bottom:transparent;
 border: 1px solid white;
 background-color:rgb(222,156,183);
-border-image: url(:/qss/others/background.jpg);
+border-image: url(:/qss/others/bg3.png);
 }
 QMenu::item:selected {
 background-color:rgb(235,110,36);
 }
 QMenu::item {
-padding:6px 70px;
+padding:1px 70px;
 }
-

@@ -2,6 +2,7 @@
 #define SPRITE_H
 
 #include <QWidget>
+#include <QIcon>
 #include <QPainter>
 #include <QPixmap>
 #include <QMouseEvent>
@@ -17,6 +18,7 @@
 #include <QHBoxLayout>
 #include <QWidgetAction>
 #include <QPushButton>
+#include <QSystemTrayIcon>
 class Sprite : public QWidget
 {
     Q_OBJECT
@@ -25,6 +27,7 @@ public:
     Sprite(QWidget *parent = 0);
     void createWidget();
     void createBtnWidget();
+    void TrayIconAction(QSystemTrayIcon::ActivationReason reason);
     ~Sprite();
 private:
     QPixmap *pix;
@@ -47,6 +50,9 @@ private:
     QWidgetAction *wact2;
     QPushButton *btn1;
     QPushButton *btn2;
+    QPushButton *btn3;
+    QSystemTrayIcon *trayIcon;
+    bool ismin;
 public slots:
     void change();
 protected:
@@ -54,6 +60,7 @@ protected:
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
+    void createTrayIcon();
 
 };
 
