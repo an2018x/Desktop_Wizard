@@ -3,18 +3,15 @@
 Sprite::Sprite(QWidget *parent)
     : QWidget(parent)
 {
+    ismin = false;
 
-    setWindowFlags(Qt::Tool);
     move(1200,600);
-    act1 = new QAction(tr("你好！我是你的桌面精灵小圆"), this);
-    act2 = new QAction(tr(""), this);
-    act3 = new QAction(tr(""), this);
-    menu=new QMenu(this);
-    createWidget();
-    createBtnWidget();
-    createTrayIcon();
-    menu->addAction(wact);
+    act1 = new QAction(tr("开发中"), this);
+    act2 = new QAction(tr("开发中"), this);
+    act3 = new QAction(tr("最小化"),this);
+    act4 = new QAction(tr("退出"),this);
 
+    menu=new QMenu(this);
     menu->addAction(act1); //添加菜单项1
     menu->addAction(act2); //添加菜单项2
     menu->addAction(act3); //最小化
@@ -33,9 +30,12 @@ Sprite::Sprite(QWidget *parent)
     timer=new QTimer(this);
     timer->start(300);
     connect(timer,SIGNAL(timeout()),this,SLOT(change()));
-    connect(btn2,&QPushButton::clicked,[=](){this->close();delete trayIcon;});
-    connect(btn3,&QPushButton::clicked,[=](){this->hide();ismin=true;});
+    connect(act3,&QAction::triggered,this,&Sprite::mininum);
 
+    InitUI();
+
+    //设置任务栏为隐藏
+    setWindowFlags(Qt::Tool);
 }
 
 Sprite::~Sprite()
@@ -112,21 +112,18 @@ void Sprite::mininum()
 
 void Sprite::InitUI()
 {
+    //暂时用这张图当logo
+    QPixmap logo(":/img/attack/logo.png");
+    setWindowIcon(QIcon(logo));
 
+    tray = new QSystemTrayIcon(this);
+    tray->setIcon(QIcon(logo));
+    tray->show();
 
-    label1=new QLabel;
-    label1->setFixedSize(60,60);
-    QPixmap pix(":/img/others/icon.png");
-    label1->setScaledContents(true);
-    label1->setPixmap(pix);
-    widgetMenu=new QWidget(this);
-    layout1=new QVBoxLayout;
-    layout1->addWidget(label1,0,Qt::AlignLeft);
-    layout1->setSpacing(5);
-    widgetMenu->setLayout(layout1);
-    wact=new QWidgetAction(menu);
-    wact->setDefaultWidget(widgetMenu);
+    tray->setContextMenu(menu2);
 
+    connect(tray,&QSystemTrayIcon::activated,this,&Sprite::TrayIconAction);
+    connect(act4,&QAction::triggered,this,&Sprite::exit);
 
 }
 
@@ -148,50 +145,6 @@ void Sprite::TrayIconAction(QSystemTrayIcon::ActivationReason reason)
 
 void Sprite::exit()
 {
-
-    widgetMenu2=new QWidget(this);
-    btn1=new QPushButton(QIcon(":/img/others/about.png"),tr(""));
-    btn2=new QPushButton(QIcon(":/img/others/exit.png"),tr(""));
-    btn3=new QPushButton(QIcon(":/img/others/mini.png"),tr(""));
-    btn1->setStyleSheet("background:transparent");
-    btn2->setStyleSheet("background:transparent");
-    btn3->setStyleSheet("background:transparent");
-    btn1->setFixedSize(25,25);
-    btn2->setFixedSize(25,25);
-    btn3->setFixedSize(25,25);
-    QHBoxLayout *layoutH=new QHBoxLayout;
-    layoutH->addWidget(btn1,0,Qt::AlignCenter);
-    layoutH->addWidget(btn2,0,Qt::AlignCenter);
-    layoutH->addWidget(btn3,0,Qt::AlignCenter);
-    layoutH->setSpacing(5);
-    widgetMenu2->setLayout(layoutH);
-    wact2=new QWidgetAction(menu);
-    wact2->setDefaultWidget(widgetMenu2);
-
-}
-void Sprite::createTrayIcon()
-{
-    trayIcon=new QSystemTrayIcon(this);
-    QIcon icon(":/img/others/icon.png");
-    trayIcon->setIcon(icon);
-    trayIcon->show();
-    trayIcon->setContextMenu(menu);
-
-    connect(trayIcon,&QSystemTrayIcon::activated,this,&Sprite::TrayIconAction);
-
-}
-void Sprite::TrayIconAction(QSystemTrayIcon::ActivationReason reason)
-{
-    if(reason == QSystemTrayIcon::Trigger)
-    {
-        if(ismin == true)
-        {
-            this->show();
-            ismin = false;
-        }else
-        {
-            this->hide();
-            ismin = true;
-        }
-    }
+    close();
+    delete tray;
 }
