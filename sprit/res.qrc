@@ -1,4 +1,5 @@
 <RCC>
+
     <qresource prefix="/qss">
         <file>menu.qss</file>
         <file>others/chat.png</file>
@@ -6,6 +7,7 @@
         <file>others/bg2.jpeg</file>
         <file>others/bg3.png</file>
     </qresource>
+
     <qresource prefix="/img">
         <file>attack/0000.png</file>
         <file>attack/0001.png</file>
@@ -16,9 +18,11 @@
         <file>attack/0006.png</file>
         <file>attack/0007.png</file>
         <file>attack/0008.png</file>
+
         <file>others/exit.png</file>
         <file>others/about.png</file>
         <file>others/mini.png</file>
         <file>others/icon.png</file>
+
     </qresource>
 </RCC>

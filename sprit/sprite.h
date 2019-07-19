@@ -19,16 +19,20 @@
 #include <QWidgetAction>
 #include <QPushButton>
 #include <QSystemTrayIcon>
+
 class Sprite : public QWidget
 {
     Q_OBJECT
 
 public:
     Sprite(QWidget *parent = 0);
+
     void createWidget();
     void createBtnWidget();
     void TrayIconAction(QSystemTrayIcon::ActivationReason reason);
+    
     ~Sprite();
+
 private:
     QPixmap *pix;
     QImage *img;
@@ -53,14 +57,25 @@ private:
     QPushButton *btn3;
     QSystemTrayIcon *trayIcon;
     bool ismin;
+
 public slots:
     void change();
+    void mininum(); //最小化
+    void TrayIconAction(QSystemTrayIcon::ActivationReason reason);
+    void InitUI();  //创建托盘图标
+    void exit();
+
+private:
+    QSystemTrayIcon *tray;  //托盘类
+
+
 protected:
     void paintEvent(QPaintEvent *);
     void mousePressEvent(QMouseEvent *);
     void mouseMoveEvent(QMouseEvent *);
     void mouseReleaseEvent(QMouseEvent *);
     void createTrayIcon();
+
 
 };
 
